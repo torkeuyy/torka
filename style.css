@@ -41,51 +41,31 @@ body {
   cursor: none !important;
 }
 
-/* ===================== */
-/* EFECTO LUZ DEL CURSOR */
-/* ===================== */
+/* Efecto luz del cursor (agrega esto en lugar del actual) */
 .cursor-light {
   position: fixed;
-  width: var(--cursor-size);
-  height: var(--cursor-size);
+  width: 150px;
+  height: 150px;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    transparent 80%
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
   );
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: overlay;
-  filter: blur(var(--cursor-blur));
+  filter: blur(8px);
   transform: translate(-50%, -50%);
-  will-change: transform;
-  backface-visibility: hidden;
-  display: none;
-  transition: transform 0.1s linear, opacity 0.3s ease;
+  display: none; /* Oculto por defecto */
 }
 
+/* Mostrar solo en dispositivos con mouse */
 @media (hover: hover) {
   .cursor-light {
     display: block;
   }
-  
-  a, button, input, .product-card, .add-to-cart {
-    cursor: none !important;
-  }
-}
-
-a:hover ~ .cursor-light,
-button:hover ~ .cursor-light,
-.add-to-cart:hover ~ .cursor-light {
-  transform: translate(-50%, -50%) scale(1.2);
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 70%
-  );
 }
 
 /* Header */
