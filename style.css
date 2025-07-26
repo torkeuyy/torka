@@ -662,3 +662,17 @@ footer {
   transition: transform 0.05s linear;
   z-index: 9999;
 }
+
+.notification {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.notification.success {
+    background-color: #4CAF50 !important;
+}
+
+.notification.error {
+    background-color: #ff4444 !important;
+}
