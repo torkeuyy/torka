@@ -9,6 +9,8 @@
   --card-bg: #ffffff;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+  --cursor-size: 150px;
+  --cursor-blur: 8px;
 }
 
 /* Modo oscuro */
@@ -36,9 +38,57 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   overflow-x: hidden;
+  cursor: none !important;
 }
 
-/* Header mejorado */
+/* ===================== */
+/* EFECTO LUZ DEL CURSOR */
+/* ===================== */
+.cursor-light {
+  position: fixed;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+  filter: blur(var(--cursor-blur));
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  backface-visibility: hidden;
+  display: none;
+  transition: transform 0.1s linear, opacity 0.3s ease;
+}
+
+@media (hover: hover) {
+  .cursor-light {
+    display: block;
+  }
+  
+  a, button, input, .product-card, .add-to-cart {
+    cursor: none !important;
+  }
+}
+
+a:hover ~ .cursor-light,
+button:hover ~ .cursor-light,
+.add-to-cart:hover ~ .cursor-light {
+  transform: translate(-50%, -50%) scale(1.2);
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+}
+
+/* Header */
 header {
   background: var(--primary-color);
   color: white;
@@ -648,294 +698,280 @@ footer {
   animation: fadeIn 0.5s ease forwards;
 }
 
-/* Luz del cursor */
-.cursor-light {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 150px;
-  height: 150px;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 80%);
-  border-radius: 50%;
-  mix-blend-mode: overlay;
-  transition: transform 0.05s linear;
-  z-index: 9999;
-}
-
+/* Notificaciones */
 .notification {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .notification.success {
-    background-color: #4CAF50 !important;
+  background-color: #4CAF50 !important;
 }
 
 .notification.error {
-    background-color: #ff4444 !important;
+  background-color: #ff4444 !important;
 }
 
 /* Estilos para Carrito */
 .cart-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .cart-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
-    margin-top: 30px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .cart-items {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .empty-cart {
-    text-align: center;
-    padding: 50px 20px;
+  text-align: center;
+  padding: 50px 20px;
 }
 
 .empty-cart i {
-    font-size: 3rem;
-    color: #ccc;
-    margin-bottom: 20px;
+  font-size: 3rem;
+  color: #ccc;
+  margin-bottom: 20px;
 }
 
 .cart-summary {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    align-self: start;
-    position: sticky;
-    top: 20px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  align-self: start;
+  position: sticky;
+  top: 20px;
 }
 
 .summary-details {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .summary-details p {
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .total {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 20px !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 20px !important;
 }
 
 .checkout-btn {
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    background: #283035;
-    color: white;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background: #283035;
+  color: white;
 }
 
 .checkout-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 .continue-shopping {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #283035;
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #283035;
 }
 
 /* Estilos para Historia */
 .about-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .hero-section {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero-bg.jpg');
-    background-size: cover;
-    color: white;
-    border-radius: 10px;
-    margin-bottom: 40px;
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero-bg.jpg');
+  background-size: cover;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 40px;
 }
 
 .timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto 50px;
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 50px;
 }
 
 .timeline-item {
-    display: flex;
-    margin-bottom: 40px;
+  display: flex;
+  margin-bottom: 40px;
 }
 
 .timeline-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  flex: 1;
 }
 
 .timeline-date {
-    width: 100px;
-    text-align: center;
-    font-weight: bold;
-    color: #283035;
-    margin-right: 20px;
-    align-self: center;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  color: #283035;
+  margin-right: 20px;
+  align-self: center;
 }
 
 .mission-vision {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 50px;
 }
 
 .mission, .vision {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 /* Estilos para Contacto */
 .contact-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .contact-info, .contact-form {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .info-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .info-item i {
-    margin-right: 15px;
-    color: #ff6b6b;
-    width: 20px;
-    text-align: center;
+  margin-right: 15px;
+  color: #ff6b6b;
+  width: 20px;
+  text-align: center;
 }
 
 .social-media {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
 }
 
 .social-media a {
-    color: #283035;
-    font-size: 1.5rem;
-    transition: color 0.3s;
+  color: #283035;
+  font-size: 1.5rem;
+  transition: color 0.3s;
 }
 
 .social-media a:hover {
-    color: #ff6b6b;
+  color: #ff6b6b;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .submit-btn {
-    background: #283035;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
+  background: #283035;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .submit-btn:hover {
-    background: #ff6b6b;
+  background: #ff6b6b;
 }
 
 /* Estilos para Políticas */
 .policies-container {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
 }
 
 .policy-section {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
 }
 
 .policy-section h2 {
-    color: #283035;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  color: #283035;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .policy-section h2 i {
-    color: #ff6b6b;
+  color: #ff6b6b;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .cart-content, .contact-grid, .mission-vision {
-        grid-template-columns: 1fr;
-    }
-    
-    .timeline-item {
-        flex-direction: column;
-    }
-    
-    .timeline-date {
-        margin-right: 0;
-        margin-bottom: 10px;
-        width: auto;
-    }
+  .cart-content, .contact-grid, .mission-vision {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline-item {
+    flex-direction: column;
+  }
+  
+  .timeline-date {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: auto;
+  }
 }
